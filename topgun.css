@@ -1,0 +1,15 @@
+
+body {
+    text-align: center;
+}
+
+#game-screen {
+    width: 600px;
+    height: 600px;
+    border: 1px solid black;
+    background-color: #64B5F6;
+}
+
+img {
+    display: none;
+}
