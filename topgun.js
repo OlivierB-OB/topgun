@@ -560,8 +560,9 @@ function topgun (window, canvas) {
         this.lastDirection = '';
     };
     Plane.prototype.shoot = function () {
-        var start = this.position.clone(), i = 9;
-        while (--i) start.move(this.speed.vector);
+        var speed = new Speed(50, this.speed.angle);
+        var start = this.position.clone();
+        start.move(speed.vector);
         var bullet = new Bullet(
             this.game,
             start,
@@ -569,7 +570,7 @@ function topgun (window, canvas) {
         );
         this.game.addElement(bullet);
         this.toogleShooting();
-        
+
         try {
             var sound = document.getElementById('sound-shot');
             sound.load();
@@ -600,10 +601,10 @@ function topgun (window, canvas) {
         this.kb = new KeyBoard();
     }
 
-    Player.MIN_SPEED = 4.5;
-    Player.MAX_SPEED = 5.5;
+    Player.MIN_SPEED = 2;
+    Player.MAX_SPEED = 8;
     Player.DEFAULT_SPEED = 5;
-    Player.FIRE_RATE = 200;
+    Player.FIRE_RATE = 100;
     Player.TURN_RATE = 10;
     Player.LIFE = 3;
     Player.IMAGE = 'player';
@@ -624,11 +625,11 @@ function topgun (window, canvas) {
         else {
             this.goStrait();
         }
-        if (this.speed.value + 0.05 <= Player.MAX_SPEED && this.kb.isDown(KeyBoard.KEYS.UP)) {
-            this.changeSpeed(0.05);
+        if (this.speed.value + 0.25 <= Player.MAX_SPEED && this.kb.isDown(KeyBoard.KEYS.UP)) {
+            this.changeSpeed(0.25);
         }
-        else if (this.speed.value - 0.05 >= Player.MIN_SPEED && this.kb.isDown(KeyBoard.KEYS.DOWN)) {
-            this.changeSpeed(-0.05);
+        else if (this.speed.value - 0.25 >= Player.MIN_SPEED && this.kb.isDown(KeyBoard.KEYS.DOWN)) {
+            this.changeSpeed(-0.25);
         }
 
         if (this.allowShooting && this.kb.isDown(KeyBoard.KEYS.SPACE)) {
